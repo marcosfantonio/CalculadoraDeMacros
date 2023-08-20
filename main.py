@@ -1,16 +1,18 @@
-# This is a sample Python script.
+from tkinter import *
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+#Janela
+root = Tk()
+root.title("Calculadora de Macros")
+root.geometry("500x500")
 
+#Textos
+pesoLabel = Label(root, text="Peso : ", font = "Calibri 24 bold")
+pesoLabel.grid(row=0, column=0)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+#Entrada
+pesoEntry = Entry(root)
+pesoEntry.grid(row=0, column=1)
+calculoBotao = Button(root, text="Calcular")
+calculoBotao.grid(row=1, column=0)
+#Loop Principal
+root.mainloop()
