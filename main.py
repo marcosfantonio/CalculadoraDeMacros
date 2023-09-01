@@ -1,126 +1,165 @@
+# Imports
 import tkinter as tk
 from tkinter import ttk
-class Application():
+
+
+class Application:
     def __init__(self):
+        # Inicialização dos Recursos da Classe
         self.root = tk.Tk()
-        self.frameUm = tk.Frame(self.root)
-        self.frameDois = tk.Frame(self.root)
-        self.backPadrao = ("#EAD7D1")
-        self.fontePadrao = ("Terminal 16 bold")
-        self.forePadrao = ("#1F1A38")
-        self.interfaceTela()
+        self.frame_um = tk.Frame(self.root)
+        self.frame_dois = tk.Frame(self.root)
+        self.background_padrao = "#1d3557"
+        self.fonte_padrao = "Terminal 16 bold"
+        self.foreground_padrao = "#f1faee"
+        self.foreground_highlight = "#e63946"
+        self.interface_tela()
         self.root.mainloop()
 
-    def interfaceTela(self):
-
-        #Janela Principal
+    def interface_tela(self):
+        # Janela Principal
         self.root.title("Calculadora de Macros")
-        self.root.geometry("500x500")
-        self.root.configure(background=self.backPadrao)
+        self.root.geometry("500x600")
+        self.root.configure(background=self.background_padrao)
         self.root.resizable(False, False)
         self.root.iconbitmap("icon.ico")
 
-        #Frames
-        self.frameUm.configure(background=self.backPadrao, width=500, height=300, borderwidth=10, relief=tk.GROOVE)
-        self.frameDois.configure(background=self.backPadrao, width=500, height=200, borderwidth=10, relief=tk.GROOVE)
+        # Frames
+        self.frame_um.configure(background=self.background_padrao, width=500, height=300, borderwidth=10, relief=tk.GROOVE)
+        self.frame_dois.configure(background=self.background_padrao, width=500, height=300, borderwidth=10, relief=tk.GROOVE)
 
-        #Labels
-        self.pesoLabel = tk.Label(
-            self.frameUm, text="Peso : ", font=self.fontePadrao, foreground=self.forePadrao, background=self.backPadrao
-        )
-        self.alturaLabel = tk.Label(
-            self.frameUm, text="Altura : ", font=self.fontePadrao, foreground=self.forePadrao, background=self.backPadrao
-        )
-        self.idadeLabel = tk.Label(
-            self.frameUm, text="Idade : ", font=self.fontePadrao, foreground=self.forePadrao, background=self.backPadrao
-        )
-        self.sexoLabel = tk.Label(
-            self.frameUm, text="Sexo : ", font=self.fontePadrao, foreground=self.forePadrao, background=self.backPadrao
-        )
-        self.atividadeLabel = tk.Label(
-            self.frameUm, text="Atividade : ", font=self.fontePadrao, foreground=self.forePadrao, background=self.backPadrao
-        )
-        self.objetivoLabel = tk.Label(
-            self.frameUm, text="Objetivo Atual : ", font=self.fontePadrao, foreground=self.forePadrao, background=self.backPadrao
-        )
-        self.caloriasLabel = tk.Label(
-            self.frameDois, text="Atualmente você precisa consumir : ", font=self.fontePadrao, foreground=self.forePadrao, background=self.backPadrao
-        )
-        self.caloriasCounter = tk.IntVar()
-        self.caloriasCounterLabel = tk.Label(
-            self.frameDois, textvariable=self.caloriasCounter, font=self.fontePadrao, foreground=self.forePadrao, background=self.backPadrao
-        )
-        self.caloriasLabelDois = tk.Label(
-            self.frameDois, text="kcal para atingir seu objetivo", font=self.fontePadrao, foreground=self.forePadrao, background=self.backPadrao
-        )
-
-        #Entrys
-        self.pesoEntry = tk.Entry(self.frameUm, font=self.fontePadrao, width=3, foreground=self.forePadrao)
-        self.alturaEntry = tk.Entry(self.frameUm, font=self.fontePadrao, width=3, foreground=self.forePadrao)
-        self.idadeEntry = tk.Entry(self.frameUm, font=self.fontePadrao, width=3, foreground=self.forePadrao)
-
-        #Botoes
-        self.calcularBotao = tk.Button(
-            self.frameUm, text="Calcular", command=self.calcularCalorias, font=self.fontePadrao, foreground=self.forePadrao
-        )
-
-        #Radios
+        # Variáveis
+        self.var_calorias = tk.IntVar()
+        self.var_carboidratos = tk.IntVar()
+        self.var_proteinas = tk.IntVar()
+        self.var_gorduras = tk.IntVar()
         self.sexoVar = tk.IntVar()
-        self.sexoRadioUm = tk.Radiobutton(
-            self.frameUm, text="Masculino", value=1, variable=self.sexoVar, font=self.fontePadrao, background=self.backPadrao,
-            foreground=self.forePadrao, selectcolor="White"
+
+        # Labels
+        self.label_peso = tk.Label(
+            self.frame_um, text="Peso : ", font=self.fonte_padrao, foreground=self.foreground_padrao, background=self.background_padrao
         )
-        self.sexoRadioDois = tk.Radiobutton(
-            self.frameUm, text="Feminino", value=2, variable=self.sexoVar, font=self.fontePadrao, background=self.backPadrao,
-            foreground=self.forePadrao, selectcolor="White"
+        self.label_altura = tk.Label(
+            self.frame_um, text="Altura : ", font=self.fonte_padrao, foreground=self.foreground_padrao, background=self.background_padrao
+        )
+        self.label_idade = tk.Label(
+            self.frame_um, text="Idade : ", font=self.fonte_padrao, foreground=self.foreground_padrao, background=self.background_padrao
+        )
+        self.label_sexo = tk.Label(
+            self.frame_um, text="Sexo : ", font=self.fonte_padrao, foreground=self.foreground_padrao, background=self.background_padrao
+        )
+        self.label_atividade = tk.Label(
+            self.frame_um, text="Atividade : ", font=self.fonte_padrao, foreground=self.foreground_padrao, background=self.background_padrao
+        )
+        self.label_objetivo = tk.Label(
+            self.frame_um, text="Objetivo Atual : ", font=self.fonte_padrao, foreground=self.foreground_padrao, background=self.background_padrao
+        )
+        self.label_calorias_um = tk.Label(
+            self.frame_dois, text="Você precisa consumir ", font=self.fonte_padrao, foreground=self.foreground_padrao, background=self.background_padrao
+        )
+        self.label_var_calorias = tk.Label(
+            self.frame_dois, textvariable=self.var_calorias, font=self.fonte_padrao, foreground=self.foreground_highlight, background=self.background_padrao
+        )
+        self.label_calorias_dois = tk.Label(
+            self.frame_dois, text="kcal/dia", font=self.fonte_padrao, foreground=self.foreground_padrao, background=self.background_padrao
+        )
+        self.label_macros = tk.Label(
+            self.frame_dois, text="das quais são divididas em : ", font=self.fonte_padrao, foreground=self.foreground_padrao, background=self.background_padrao
+        )
+        self.label_var_proteinas = tk.Label(
+            self.frame_dois, textvariable=self.var_proteinas, font=self.fonte_padrao, foreground=self.foreground_highlight, background=self.background_padrao
+        )
+        self.label_proteinas = tk.Label(
+            self.frame_dois, text="g de proteinas (30% das calor)", font=self.fonte_padrao, foreground=self.foreground_padrao, background=self.background_padrao
+        )
+        self.label_var_carboidratos = tk.Label(
+            self.frame_dois, textvariable=self.var_carboidratos, font=self.fonte_padrao, foreground=self.foreground_highlight, background=self.background_padrao
+        )
+        self.label_carboidratos = tk.Label(
+            self.frame_dois, text="g de carboidratos (40% das kcal)", font=self.fonte_padrao, foreground=self.foreground_padrao, background=self.background_padrao
+        )
+        self.label_var_gorduras = tk.Label(
+            self.frame_dois, textvariable=self.var_gorduras, font=self.fonte_padrao, foreground=self.foreground_highlight, background=self.background_padrao
+        )
+        self.label_gorduras = tk.Label(
+            self.frame_dois, text="g de gorduras (30% das kcal)", font=self.fonte_padrao, foreground=self.foreground_padrao, background=self.background_padrao
         )
 
-        #Comboboxes
-        self.atividadeCombobox = ttk.Combobox(
-            self.frameUm, font=self.fontePadrao, width=25, foreground=self.forePadrao
+        # Entrys
+        self.entry_peso = tk.Entry(self.frame_um, font=self.fonte_padrao, width=3, foreground=self.foreground_highlight)
+        self.entry_altura = tk.Entry(self.frame_um, font=self.fonte_padrao, width=3, foreground=self.foreground_highlight)
+        self.entry_idade = tk.Entry(self.frame_um, font=self.fonte_padrao, width=3, foreground=self.foreground_highlight)
+
+        # Botoes
+        self.botao_calcular = tk.Button(
+            self.frame_um, text="Calcular", command=self.calcular_calorias, font=self.fonte_padrao, foreground=self.foreground_highlight
         )
-        self.objetivoCombobox = ttk.Combobox(
-            self.frameUm, font=self.fontePadrao, width=20, foreground=self.forePadrao
+
+        # Radios
+        self.radio_sexo_um = tk.Radiobutton(
+            self.frame_um, text="Masculino", value=1, variable=self.sexoVar, font=self.fonte_padrao, background=self.background_padrao,
+            foreground=self.foreground_padrao, selectcolor=self.foreground_highlight
         )
-        atividadeItens = ("Sedentário", "Atividade Física Leve", "Atividade Física Moderada", "Atividade Física Intensa")
-        objetivoItens = ("Perder Peso", "Manter Peso", "Ganhar Peso")
-        self.atividadeCombobox["values"] = atividadeItens
-        self.objetivoCombobox["values"] = objetivoItens
+        self.radio_sexo_dois = tk.Radiobutton(
+            self.frame_um, text="Feminino", value=2, variable=self.sexoVar, font=self.fonte_padrao, background=self.background_padrao,
+            foreground=self.foreground_padrao, selectcolor=self.foreground_highlight
+        )
+
+        # Comboboxes
+        self.combobox_atividade = ttk.Combobox(
+            self.frame_um, font=self.fonte_padrao, width=25, foreground=self.foreground_highlight
+        )
+        self.combobox_objetivo = ttk.Combobox(
+            self.frame_um, font=self.fonte_padrao, width=20, foreground=self.foreground_highlight
+        )
+        itens_atividade = ("Sedentário", "Atividade Física Leve", "Atividade Física Moderada", "Atividade Física Intensa")
+        itens_objetivo = ("Perder Peso", "Manter Peso", "Ganhar Peso")
+        self.combobox_atividade["values"] = itens_atividade
+        self.combobox_objetivo["values"] = itens_objetivo
 
         #Placement
-        self.frameUm.pack()
-        self.frameDois.pack()
-        self.pesoLabel.place(relx=0.04, rely=0.1)
-        self.pesoEntry.place(relx=0.22, rely=0.1)
-        self.alturaLabel.place(relx=0.34, rely=0.1)
-        self.alturaEntry.place(relx=0.56, rely=0.1)
-        self.idadeLabel.place(relx=0.68, rely=0.1)
-        self.idadeEntry.place(relx=0.88, rely=0.1)
-        self.sexoLabel.place(relx=0.04, rely=0.25)
-        self.sexoRadioUm.place(relx=0.21, rely=0.25)
-        self.sexoRadioDois.place(relx=0.55, rely=0.25)
-        self.atividadeLabel.place(relx=0.04, rely=0.4)
-        self.atividadeCombobox.place(relx=0.32, rely=0.4)
-        self.objetivoCombobox.place(relx=0.435, rely=0.55)
-        self.objetivoLabel.place(relx=0.04, rely=0.55)
-        self.caloriasLabel.place(relx=0.5, rely=0.3, anchor="center")
-        self.caloriasCounterLabel.place(relx=0.5, rely=0.5, anchor="center")
-        self.caloriasLabelDois.place(relx=0.5, rely=0.7, anchor="center")
-        self.calcularBotao.place(relx=0.5, rely=0.82, anchor="center")
+        self.frame_um.pack()
+        self.frame_dois.pack()
+        self.label_peso.place(relx=0.04, rely=0.1)
+        self.entry_peso.place(relx=0.22, rely=0.1)
+        self.label_altura.place(relx=0.34, rely=0.1)
+        self.entry_altura.place(relx=0.56, rely=0.1)
+        self.label_idade.place(relx=0.68, rely=0.1)
+        self.entry_idade.place(relx=0.88, rely=0.1)
+        self.label_sexo.place(relx=0.04, rely=0.25)
+        self.radio_sexo_um.place(relx=0.21, rely=0.25)
+        self.radio_sexo_dois.place(relx=0.55, rely=0.25)
+        self.label_atividade.place(relx=0.04, rely=0.4)
+        self.combobox_atividade.place(relx=0.32, rely=0.4)
+        self.combobox_objetivo.place(relx=0.435, rely=0.55)
+        self.label_objetivo.place(relx=0.04, rely=0.55)
+        self.botao_calcular.place(relx=0.5, rely=0.82, anchor="center")
+        self.label_calorias_um.place(relx=0.1, rely=0.1)
+        self.label_var_calorias.place(relx=0.6, rely=0.1)
+        self.label_calorias_dois.place(relx=0.7, rely=0.1)
+        self.label_macros.place(relx=0.1, rely=0.25)
+        self.label_proteinas.place(relx=0.18, rely=0.4)
+        self.label_var_proteinas.place(relx=0.1, rely=0.4)
+        self.label_carboidratos.place(relx=0.18, rely=0.55)
+        self.label_var_carboidratos.place(relx=0.1, rely=0.55)
+        self.label_gorduras.place(relx=0.18, rely=0.7)
+        self.label_var_gorduras.place(relx=0.1, rely=0.7)
 
-    def calcularCalorias(self):
-        self.peso = int(self.pesoEntry.get())
-        self.altura = int(self.alturaEntry.get())
-        self.idade = int(self.idadeEntry.get())
+    #Funções
+    def calcular_calorias(self):
+        self.peso = int(self.entry_peso.get())
+        self.altura = int(self.entry_altura.get())
+        self.idade = int(self.entry_idade.get())
         self.sexo = int(self.sexoVar.get())
-        self.atividade = self.atividadeCombobox.get()
-        self.objetivo = self.objetivoCombobox.get()
-        self.calcularBmr()
-        self.calcularTdee()
-        self.calcularTdeeF()
-        self.atualizarDados()
+        self.atividade = self.combobox_atividade.get()
+        self.objetivo = self.combobox_objetivo.get()
+        self.calcular_bmr()
+        self.calcular_tdee()
+        self.calcular_tdee_final()
+        self.calcular_macros()
+        self.atualizar_dados()
 
-    def calcularBmr(self):
+    def calcular_bmr(self):
         if self.sexo == 1:
             self.bmr = (88.4 + 13.4 * self.peso) + (4.8 * self.altura) - (5.68 * self.idade)
             return self.bmr
@@ -128,7 +167,7 @@ class Application():
             self.bmr = (447.6 + 9.25 * self.peso) + (3.10 * self.altura) - (4.33 * self.idade)
             return self.bmr
 
-    def calcularTdee(self):
+    def calcular_tdee(self):
         if self.atividade == "Sedentário":
             self.tdee = self.bmr * 1.1
             return self.tdee
@@ -142,7 +181,7 @@ class Application():
             self.tdee = self.bmr * 1.525
             return self.tdee
 
-    def calcularTdeeF(self):
+    def calcular_tdee_final(self):
         if self.objetivo == "Perder Peso":
             self.tdeef = self.tdee - 500
             return self.tdeef
@@ -153,7 +192,16 @@ class Application():
             self.tdeef = self.tdee + 500
             return self.tdeef
 
-    def atualizarDados(self):
-        self.caloriasCounter.set(round(self.tdeef))
+    def calcular_macros(self):
+        self.proteinas = (self.tdeef * 0.3) / 4
+        self.carbos = (self.tdeef * 0.4) / 4
+        self.gorduras = (self.tdeef * 0.3) / 9
+        return self.proteinas, self.carbos, self.gorduras
+
+    def atualizar_dados(self):
+        self.var_calorias.set(round(self.tdeef))
+        self.var_proteinas.set(round(self.proteinas))
+        self.var_carboidratos.set(round(self.carbos))
+        self.var_gorduras.set(round(self.gorduras))
 
 Application()
